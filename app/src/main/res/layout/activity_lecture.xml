@@ -17,6 +17,7 @@
         app:tabIndicatorColor="#000000"
         />
 
+
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/list_view_pager"
         android:layout_width="match_parent"

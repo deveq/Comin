@@ -20,10 +20,7 @@ class FirstFragAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FirstListViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val view = inflater.inflate(R.layout.list_view_item,parent,false)
-        view.setOnClickListener {
-            val intent = Intent(context, MarketInfoActivity::class.java)
-            context.startActivity(intent)
-        }
+
         return FirstListViewHolder(view)
     }
 
@@ -36,6 +33,13 @@ class FirstFragAdapter(
         holder.tvTitle.text = content.title
         holder.tvContent.text = "최근 리뷰가 ${content.number}개 입니다."
         holder.tvCategory.text = content.category
+
+        holder.itemView.setOnClickListener {
+            val intent = Intent(context, MarketInfoActivity::class.java)
+            intent.putExtra("title",list[position].title)
+            context.startActivity(intent)
+        }
+
     }
 
     override fun getItemCount(): Int {

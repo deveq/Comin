@@ -7,6 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.comin.R
+import com.example.comin.Utils.FirebaseUtils
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_first.view.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -24,6 +27,10 @@ class FirstFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private lateinit var database : FirebaseFirestore
+    private lateinit var uid : String
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -38,6 +45,8 @@ class FirstFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
 
+        database = FirebaseUtils.database
+        uid = FirebaseUtils.getUid()
 
         val view = inflater.inflate(R.layout.fragment_first, container, false)
 
@@ -60,10 +69,53 @@ class FirstFragment : Fragment() {
             layoutManager = LinearLayoutManager(inflater.context)
         }
 
+        // 나누는 이유 : update를 사용하기 위해
+
+
+
+
+
+        database.collection("zzim").document(uid)
+            .get()
+            .addOnSuccessListener { documentSnapshot ->
+
+                if (documentSnapshot.exists()) {
+                    // Data 필드가 있을 때
+                } else {
+                    // Data 필드가 없을 때
+                    val lecture = hashMapOf(
+                        "lang1" to "",
+                        "lang2" to "",
+                        "lang3" to "",
+                        "lang4" to "",
+                        "lang5" to "",
+                        "lang6" to "",
+                        "lang7" to "",
+                        "lang8" to "",
+                        "lang9" to "",
+                    )
+                    database.collection("zzim")
+                        .document(uid)
+                        .set(lecture)
+                        .addOnSuccessListener {
+
+                        }
+                        .addOnFailureListener {
+
+                        }
+                }
+
+
+            }
+            .addOnFailureListener {
+
+            }
+
+
+
 
         return view
     }
-
     companion object {
         /**
          * Use this factory method to create a new instance of

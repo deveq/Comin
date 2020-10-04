@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.example.comin.Auth.LoginActivity
 import com.example.comin.Auth.MyCominActivity
+import com.example.comin.zzim.ZzimActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -59,6 +60,12 @@ class MainActivity : AppCompatActivity() {
             }
             
         }
+
+        zzim_page.setOnClickListener {
+            val intent = Intent(this,ZzimActivity::class.java)
+            startActivity(intent)
+        }
+
 
     }
 
